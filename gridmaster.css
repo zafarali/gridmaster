@@ -1,0 +1,26 @@
+/* G R I D M A S T E R   F O R   A N G U L A R J S
+Created by Zafarali Ahmed (2014) Available to all under MIT License
+V 0.0.1
+*/
+.gm-resizer-vertical,.gm-resizer-horizontal{
+	background-color: gray;
+	position: absolute;
+}
+.gm-resizer-vertical{
+	top:0;
+	bottom:0;
+}
+.gm-resizer-horizontal{
+	right:0;
+	left:0;
+}
+.gm-resizer-vertical:hover{
+	cursor:ew-resize;
+}
+.gm-resizer-horizontal:hover{
+	cursor:ns-resize;
+}
+.gm-resizer-vertical:hover,.gm-resizer-horizontal:hover{
+	background-color: black;
+}
+

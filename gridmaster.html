@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<title>Gridmaster</title>
+	<script type='text/javascript' src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+	<script type='text/javascript' src="gridmaster.js"></script>
+	<link rel="stylesheet" type="text/css" href="gridmaster.css">
+	<script>
+	angular.module('myapp', ['gridmaster']);
+	</script>
+	<style>
+	#sidebar{
+		background-color: green;
+		width:300px;
+		position: absolute;
+		top:0;
+		bottom:0;
+		left:0;
+	}
+	#content{
+		background-color: red;
+		position: absolute;
+		right:0;
+		top:0;
+		bottom:0;
+	}
+	#inner-left{
+		background-color: yellow;
+		width:100px;
+		position: absolute;
+		top:0;
+		bottom:0;
+		left:0;
+	}
+	#inner-right{
+		background-color: white;
+		position: absolute;
+		right:0;
+		top:0;
+		bottom:0;
+	}
+	#inner-inner-bottom{
+		background-color:red;
+		position: absolute;
+		right:0;
+		left:0;
+		bottom:0;
+	}
+	#inner-inner-top{
+		background-color:blue;
+		position: absolute;
+		right:0;
+		top:0;
+		left:0;
+		height:100px;
+	}
+	</style>
+</head>
+<body>
+<div id="wrapper" gm-wrapper>
+<div id="sidebar">
+Sidebar here guys!
+</div>
+<div gm-resizer gm-direction="vertical" gm-left="#sidebar" gm-right="#content" gm-max="400" gm-width="6" gm-min="100"></div>
+<div id="content" gm-wrapper>
+	<div id="inner-left" >More stuff</div>
+	<div gm-resizer gm-direction="vertical" gm-left="#inner-left" gm-right="#inner-right" gm-width="6"></div>
+	<div id="inner-right">
+		<div id="inner-inner-top">Top stuff here!</div>
+		<div id="inner-inner-bottom">Bottom stuff here!</div>
+		<div gm-resizer gm-direction="horizontal" gm-top="#inner-inner-top" gm-bottom="#inner-inner-bottom" gm-height="6" gm-max="300" gm-min="100"></div>
+	</div>
+</div>
+
+</div>
+</body>
+</html>

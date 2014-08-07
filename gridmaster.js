@@ -9,15 +9,35 @@ V 0.0.1 https://github.com/zafarali/gridmaster
 	 .directive('gmWrapper', function() {
 	  	return {
 		  	restrict: 'A',
+		  	controller: ['$scope', function ($scope) {
+
+		  		$scope.units = 'px';
+
+		  		this.setUnits = function (unit){
+		  			$scope.units = unit;
+		  		}
+		  		this.getUnits = function (){
+		  			return $scope.units;
+		  		}
+		  	}],
 		  	// transclude:true,
 		  	// template:'<div style="position:static" ng-transclude></div>',
-		  	link: function (element) {
-		  		// element.find('div').css({
-		  		// 	position:'absolute'
-		  		// })
+		  	link: function (scope, element) {
+		 			element.bind('mouseenter', function () {
+		 				console.log(scope.units);
+		 			});
 		  	}
 		  }
 	  })
+	 .directive('gmUnit', function () {
+	 	return {
+	 		require: 'gmWrapper',
+	 		restrict: 'A',
+	 		link: function (scope, element, attrs, controller) {
+	 			controller.setUnits(attrs.gmUnit);
+	 		}
+	 	}
+	 })
 	 .directive('gmResizer', [ '$document', '$window', function ($document, $window) {
 	 		var gmIsArray = function (toCheck) {
 	 			return toString.call(toCheck) === '[object Array]';
@@ -33,7 +53,7 @@ V 0.0.1 https://github.com/zafarali/gridmaster
 	 					w: parseInt($(attributes.gmLeft).css('width')) + (parseInt($(attributes.gmLeft).css('left')) || 0),
 	 					h: parseInt($(attributes.gmTop).css('height')) + (parseInt($(attributes.gmTop).css('top')) || 0)
 	 				}
-	 				
+
 	 				if ( attributes.gmDirection==='vertical' ) {
 		 				element.css({
 		 					top: attributes.gmTopOffset+'px',

@@ -1,6 +1,6 @@
 /* G R I D M A S T E R   F O R   A N G U L A R J S
 Created by Zafarali Ahmed (2014) Available to all under MIT License
-V 0.0.1
+V 0.0.1 https://github.com/zafarali/gridmaster
 */
 ;(function () {
 
@@ -36,11 +36,15 @@ V 0.0.1
 
 	 				if ( attributes.gmDirection==='vertical' ) {
 		 				element.css({
+		 					top: attributes.gmTopOffset+'px',
+		 					bottom: attributes.gmBottomOffset+'px',
 		 					left: offset.w+'px',
-		 					width: attributes.gmWidth+'px',
+		 					width: attributes.gmWidth+'px'
 		 				});
 	 				} else {
 		 				element.css({
+		 					left: attributes.gmLeftOffset+'px',
+		 					right: attributes.gmRightOffset+'px',
 		 					top: offset.h+'px',
 		 					height: attributes.gmHeight+'px',
 		 				});	 					

@@ -30,10 +30,10 @@ V 0.0.1 https://github.com/zafarali/gridmaster
 	 				//initialization of all elements and their positions
 	 				element.addClass('gm-resizer-'+attributes.gmDirection);
 	 				var offset = {
-	 					w: parseInt($(attributes.gmLeft).css('width')),
-	 					h: parseInt($(attributes.gmTop).css('height'))
+	 					w: parseInt($(attributes.gmLeft).css('width')) + (parseInt($(attributes.gmLeft).css('left')) || 0),
+	 					h: parseInt($(attributes.gmTop).css('height')) + (parseInt($(attributes.gmTop).css('top')) || 0)
 	 				}
-
+	 				
 	 				if ( attributes.gmDirection==='vertical' ) {
 		 				element.css({
 		 					top: attributes.gmTopOffset+'px',

@@ -48,10 +48,18 @@ V 0.0.1 https://github.com/zafarali/gridmaster
 	 			require: '^gmWrapper',
 	 			link: function (scope, element, attributes, controller) {
 	 				//initialization of all elements and their positions
-	 				element.addClass('gm-resizer-'+attributes.gmDirection);
+	 				if(attributes.gmDisabled==='true') {
+	 					element.addClass('gm-resizer-'+attributes.gmDirection);
+	 				}else{
+	 					element.addClass('gm-resizer-'+attributes.gmDirection+' enabled');
+	 				}
 	 				var offset = {
 	 					w: parseInt($(attributes.gmLeft).css('width')) + (parseInt($(attributes.gmLeft).css('left')) || 0),
 	 					h: parseInt($(attributes.gmTop).css('height')) + (parseInt($(attributes.gmTop).css('top')) || 0)
+	 				}
+	 				var initial = {
+	 					x : parseInt(element.css('left')),
+	 					y : parseInt(element.css('top'))
 	 				}
 	 				var unit = 'px';
 	 				if ( attributes.gmDirection==='vertical' ) {
@@ -79,6 +87,9 @@ V 0.0.1 https://github.com/zafarali/gridmaster
 	 				});
 
 	 				var mousemove = function (event) {
+	 					if(attributes.gmDisabled==='true') return;
+
+
 	 					var unit = controller.getUnits();
 
 	 					var parents = {
@@ -100,11 +111,14 @@ V 0.0.1 https://github.com/zafarali/gridmaster
 
 	 						if (attributes.gmMax && x > parseInt(attributes.gmMax)) {
 	 							x = parseInt(attributes.gmMax);
-	 						} else if (attributes.gmMin && x < parseInt(attributes.gmMin)){
+	 						} else if (attributes.gmMin && x < parseInt(attributes.gmMin)) {
 	 							x = parseInt(attributes.gmMin);
-	 						}else if(x < 0){
-	 							x = 0;
-	 						} 
+	 						} else if (x < 0) {
+	 							x = offset.w || 0;
+	 							console.log('okaz')
+	 						} else if ( x < offset.w ){
+	 							x = offset.w; //blocks us from moving further than the viewPort
+	 						}
 
 	 						element.css({
 	 							left: (x-parents.x) + unit
@@ -135,6 +149,8 @@ V 0.0.1 https://github.com/zafarali/gridmaster
 	 							y = parseInt(attributes.gmMin);
 	 						}else if (y < 0){
 	 							y = 0;
+	 						} else if( y > $window.innerHeight){
+	 							y = $window.innerHeight;
 	 						}
 
 	 						element.css({

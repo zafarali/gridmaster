@@ -1,11 +1,15 @@
 /* G R I D M A S T E R   F O R   A N G U L A R J S
 Created by Zafarali Ahmed (2014) Available to all under MIT License
-V 0.0.1
+V 0.0.1 https://github.com/zafarali/gridmaster
 */
 .gm-resizer-vertical,.gm-resizer-horizontal{
 	background-color: gray;
 	position: absolute;
 }
+.gm-resizer-vertical.enabled:hover,.gm-resizer-horizontal.enabled:hover{
+	background-color: black;
+}
+
 .gm-resizer-vertical{
 	top:0;
 	bottom:0;
@@ -14,13 +18,9 @@ V 0.0.1
 	right:0;
 	left:0;
 }
-.gm-resizer-vertical:hover{
+.gm-resizer-vertical.enabled:hover{
 	cursor:ew-resize;
 }
-.gm-resizer-horizontal:hover{
+.gm-resizer-horizontal.enabled:hover{
 	cursor:ns-resize;
 }
-.gm-resizer-vertical:hover,.gm-resizer-horizontal:hover{
-	background-color: black;
-}
-

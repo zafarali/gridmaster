@@ -45,40 +45,42 @@ V 0.0.1 https://github.com/zafarali/gridmaster
 	 		return {
 	 			restrict: 'A',
 	 			scope:true,
-	 			link: function (scope, element, attributes) {
-	 				
+	 			require: '^gmWrapper',
+	 			link: function (scope, element, attributes, controller) {
 	 				//initialization of all elements and their positions
 	 				element.addClass('gm-resizer-'+attributes.gmDirection);
 	 				var offset = {
 	 					w: parseInt($(attributes.gmLeft).css('width')) + (parseInt($(attributes.gmLeft).css('left')) || 0),
 	 					h: parseInt($(attributes.gmTop).css('height')) + (parseInt($(attributes.gmTop).css('top')) || 0)
 	 				}
-
+	 				var unit = 'px';
 	 				if ( attributes.gmDirection==='vertical' ) {
 		 				element.css({
-		 					top: attributes.gmTopOffset+'px',
-		 					bottom: attributes.gmBottomOffset+'px',
-		 					left: offset.w+'px',
-		 					width: attributes.gmWidth+'px'
+		 					top: attributes.gmTopOffset+unit,
+		 					bottom: attributes.gmBottomOffset+unit,
+		 					left: offset.w+unit,
+		 					width: attributes.gmWidth+unit
 		 				});
 	 				} else {
 		 				element.css({
-		 					left: attributes.gmLeftOffset+'px',
-		 					right: attributes.gmRightOffset+'px',
-		 					top: offset.h+'px',
-		 					height: attributes.gmHeight+'px',
+		 					left: attributes.gmLeftOffset+unit,
+		 					right: attributes.gmRightOffset+unit,
+		 					top: offset.h+unit,
+		 					height: attributes.gmHeight+unit,
 		 				});	 					
 	 				}
 
 	 				$(attributes.gmRight).css({
-	 					left: offset.w+parseInt(attributes.gmWidth)+'px'
+	 					left: offset.w+parseInt(attributes.gmWidth)+unit
 	 				});
 
 	 				$(attributes.gmBottom).css({
-	 					top: offset.h+parseInt(attributes.gmHeight)+'px'
+	 					top: offset.h+parseInt(attributes.gmHeight)+unit
 	 				});
 
 	 				var mousemove = function (event) {
+	 					var unit = controller.getUnits();
+
 	 					var parents = {
 	 						x: parseInt(element.parent().css('left')) || 0,
 	 						y: parseInt(element.parent().css('bottom')) || 0
@@ -105,15 +107,15 @@ V 0.0.1 https://github.com/zafarali/gridmaster
 	 						} 
 
 	 						element.css({
-	 							left: (x-parents.x) + 'px'
+	 							left: (x-parents.x) + unit
 	 						});
 
 	 						$(attributes.gmLeft).css({
-	 							width: (x-parents.x) + 'px'
+	 							width: (x-parents.x) + unit
 	 						})
 
 	 						$(attributes.gmRight).css({
-	 							left: (x-parents.x+parseInt(attributes.gmWidth || attributes.gmSize)) + 'px'
+	 							left: (x-parents.x+parseInt(attributes.gmWidth || attributes.gmSize)) + unit
 	 						})
 
 
@@ -136,15 +138,15 @@ V 0.0.1 https://github.com/zafarali/gridmaster
 	 						}
 
 	 						element.css({
-	 							top: (y-parents.y) + 'px'
+	 							top: (y-parents.y) + unit
 	 						});
 
 	 						$(attributes.gmTop).css({
-	 							height: (y -parents.y ) + 'px'
+	 							height: (y -parents.y ) + unit
 	 						});
 
 	 						$(attributes.gmBottom).css({
-	 							top: (y-parents.y +parseInt(attributes.gmHeight))+ 'px'
+	 							top: (y-parents.y +parseInt(attributes.gmHeight))+ unit
 	 						})
 
 	 					}//end if
